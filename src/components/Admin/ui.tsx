@@ -97,7 +97,7 @@ export function FileButton({
       <button
         type="button"
         disabled={disabled}
-        className="inline-flex border border-bone/25 px-4 py-2 text-sm tracking-[0.12em] disabled:opacity-40"
+        className="inline-flex w-fit border border-bone/25 px-4 py-2 text-sm tracking-[0.12em] disabled:opacity-40"
         onClick={() => ref.current?.click()}
       >
         {label}

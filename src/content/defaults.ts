@@ -1,4 +1,4 @@
-import raw from "../../public/content/site.json" with { type: "json" };
+import raw from "./site.json" with { type: "json" };
 import type { MemberId, SiteContent } from "./types";
 import { memberIds } from "./types";
 

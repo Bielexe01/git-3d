@@ -38,7 +38,6 @@ export function SiteProvider({ children }: { children: ReactNode }) {
   const [uploading, setUploading] = useState(false);
   const [notice, setNotice] = useState<Notice>(null);
   const dirtyRef = useRef(false);
-  dirtyRef.current = dirty;
 
   useEffect(() => {
     let live = true;
@@ -62,6 +61,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const edit = useCallback((recipe: (current: SiteContent) => SiteContent) => {
+    dirtyRef.current = true;
     setDraft((current) => recipe(current));
     setDirty(true);
     setNotice(null);
@@ -79,6 +79,7 @@ export function SiteProvider({ children }: { children: ReactNode }) {
       const body = await payloadOf(response);
       if (!response.ok) throw new Error(body.error || "Não foi possível salvar.");
       const saved = normalize(body);
+      dirtyRef.current = false;
       setContent(saved);
       setDraft(saved);
       setDirty(false);

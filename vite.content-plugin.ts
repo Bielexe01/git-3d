@@ -175,13 +175,18 @@ function sanitize(input: unknown) {
   const hero = record(row.hero, "Abertura");
   const copy = record(row.copy, "Textos");
   const social = record(row.social, "Links");
-  if (!Array.isArray(row.members) || !Array.isArray(row.gallery) || !Array.isArray(row.tracks) || !Array.isArray(row.videos)) {
-    throw httpError(400, "As listas do site estão incompletas.");
-  }
-  if (row.gallery.length > 60 || row.tracks.length > 40 || row.videos.length > 40) throw httpError(400, "Lista longa demais.");
+  const membersIn = row.members;
+  const galleryIn = row.gallery;
+  const tracksIn = row.tracks;
+  const videosIn = row.videos;
+  if (!Array.isArray(membersIn)) throw httpError(400, "As listas do site estão incompletas.");
+  if (!Array.isArray(galleryIn)) throw httpError(400, "As listas do site estão incompletas.");
+  if (!Array.isArray(tracksIn)) throw httpError(400, "As listas do site estão incompletas.");
+  if (!Array.isArray(videosIn)) throw httpError(400, "As listas do site estão incompletas.");
+  if (galleryIn.length > 60 || tracksIn.length > 40 || videosIn.length > 40) throw httpError(400, "Lista longa demais.");
 
   const members = memberIds.map((id) => {
-    const found = row.members.find((item) => record(item, "Integrante").id === id);
+    const found = membersIn.find((item) => record(item, "Integrante").id === id);
     const member = record(found, `Integrante ${id}`);
     return {
       id,
@@ -193,7 +198,7 @@ function sanitize(input: unknown) {
     };
   });
 
-  const gallery = row.gallery.map((item) => {
+  const gallery = galleryIn.map((item) => {
     const photo = record(item, "Foto");
     const ratio = photo.ratio;
     if (typeof ratio !== "string" || !ratios.has(ratio)) throw httpError(400, "Proporção de foto inválida.");
@@ -206,7 +211,7 @@ function sanitize(input: unknown) {
     };
   });
 
-  const tracks = row.tracks.map((item) => {
+  const tracks = tracksIn.map((item) => {
     const track = record(item, "Música");
     return {
       id: itemId(track.id),
@@ -219,7 +224,7 @@ function sanitize(input: unknown) {
     };
   });
 
-  const videos = row.videos.map((item) => {
+  const videos = videosIn.map((item) => {
     const video = record(item, "Vídeo");
     return {
       id: itemId(video.id),

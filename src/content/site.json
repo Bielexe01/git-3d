@@ -32,46 +32,34 @@
     {
       "id": "vitin",
       "name": "Vitin",
-      "roles": [
-        "Compositor",
-        "Guitarrista",
-        "Vocalista"
-      ],
+      "roles": ["Compositor", "Guitarrista", "Vocalista"],
       "instrument": "Guitarra + Voz",
-      "image": "/uploads/1790188322567-cswj-WhatsApp-Image-2026-09-23-at-15-28-45.jpg",
-      "imageAlt": "Vitor Gabriel, Compositor, Guitarrista e quase vocalista da britt"
+      "image": "/images/band/guitar-vitin.jpg",
+      "imageAlt": "Imagem provisória de uma guitarra clara em estúdio. Substituir pela foto de Vitin."
     },
     {
       "id": "will",
       "name": "Will",
-      "roles": [
-        "Compositor",
-        "Guitarrista",
-        "Vocalista"
-      ],
+      "roles": ["Compositor", "Guitarrista", "Vocalista"],
       "instrument": "Guitarra + Voz",
-      "image": "/uploads/1790188574972-uokl-66f3975a-83c1-4058-b6b0-ad4e4c201c79.jpg",
-      "imageAlt": "Willian Furlan, Compositor, Guitarrista e Vocalista da britt"
+      "image": "/images/band/guitar-will.jpg",
+      "imageAlt": "Imagem provisória de uma guitarra escura em estúdio. Substituir pela foto de Will."
     },
     {
       "id": "hiagolas",
       "name": "Hiagolas",
-      "roles": [
-        "Baixista"
-      ],
+      "roles": ["Baixista"],
       "instrument": "Baixo",
       "image": "/images/band/bass.jpg",
-      "imageAlt": "Conhecem o Duca ? Hiago Reis é melhor eu garanto"
+      "imageAlt": "Imagem provisória de um baixo em estúdio. Substituir pela foto de Hiagolas."
     },
     {
       "id": "biel",
       "name": "Biel",
-      "roles": [
-        "Baterista"
-      ],
+      "roles": ["Baterista"],
       "instrument": "Bateria",
-      "image": "/uploads/1790188724609-tcqq-473dc40d-065e-43b8-8486-c4dc205545c5.jpg",
-      "imageAlt": "Aposan da banda B'ritt, garoto prodigio vugo Paulo Gabriel "
+      "image": "/images/band/drums.jpg",
+      "imageAlt": "Imagem provisória de uma bateria em estúdio. Substituir pela foto de Biel."
     }
   ],
   "gallery": [

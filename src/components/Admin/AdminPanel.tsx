@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type MouseEvent, type ReactNode } from "react";
+import { useState, type MouseEvent, type ReactNode } from "react";
 import { audioAccept, imageAccept, videoAccept } from "../../content/files";
 import { safeMedia } from "../../content/links";
 import { useSite } from "../../content/SiteProvider";
@@ -545,11 +545,6 @@ function VideosTab() {
 export function AdminPanel({ onViewSite }: { onViewSite: () => void }) {
   const { dirty, saving, uploading, notice, save } = useSite();
   const [tab, setTab] = useState<TabId>("textos");
-  const heading = useRef<HTMLHeadingElement>(null);
-
-  useEffect(() => {
-    heading.current?.focus();
-  }, []);
 
   function leave(event: MouseEvent<HTMLAnchorElement>) {
     if (dirty && !window.confirm("Há mudanças que ainda não foram salvas. Ver o site mesmo assim?")) {
@@ -565,7 +560,7 @@ export function AdminPanel({ onViewSite }: { onViewSite: () => void }) {
         <header className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <p className="text-xs tracking-[0.22em] text-brass">PAINEL</p>
-            <h1 ref={heading} tabIndex={-1} className="mt-2 font-display text-5xl tracking-tight outline-none md:text-6xl">
+            <h1 className="mt-2 max-w-[12ch] font-display text-4xl leading-[0.95] tracking-tight md:text-6xl">
               Editar a B'ritt
             </h1>
             <p className="mt-4 max-w-[48ch] text-bone-dim">

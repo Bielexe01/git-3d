@@ -34,7 +34,7 @@ export function Cursor() {
   return (
     <motion.div
       aria-hidden="true"
-      className="pointer-events-none fixed top-0 left-0 z-[60] flex items-center gap-2"
+      className="pointer-events-none fixed top-0 left-0 z-[100] flex items-center gap-2"
       style={{ x, y, translateX: "-10%", translateY: "-10%" }}
     >
       <span className="block h-3.5 w-3.5 rounded-full border border-brass" />
