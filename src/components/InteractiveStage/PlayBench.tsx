@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { useInView } from "motion/react";
 import { audioManager } from "../../audio/AudioManager";
 import { BENCH_IDS } from "../../audio/samples";
-import { socialLinks } from "../../data/social";
+import { safeHref } from "../../content/links";
+import { useSite } from "../../content/SiteProvider";
 import { InteractiveAmp } from "../InteractiveAmp/InteractiveAmp";
 import { InteractiveBass } from "../InteractiveBass/InteractiveBass";
 import { InteractiveDrums } from "../InteractiveDrums/InteractiveDrums";
@@ -11,10 +12,12 @@ import { InteractiveMicrophone } from "../InteractiveMicrophone/InteractiveMicro
 import { LiveWave } from "../ui/LiveWave";
 
 function ListenLink() {
+  const { content } = useSite();
+  const spotify = safeHref(content.social.spotify);
   const [note, setNote] = useState(false);
-  if (socialLinks.spotify) {
+  if (spotify) {
     return (
-      <a href={socialLinks.spotify} target="_blank" rel="noreferrer noopener" data-cursor="ABRIR" className="inline-flex bg-brass px-5 py-3 text-sm tracking-[0.16em] text-ink">
+      <a href={spotify} target="_blank" rel="noreferrer noopener" data-cursor="ABRIR" className="inline-flex bg-brass px-5 py-3 text-sm tracking-[0.16em] text-ink">
         Ouvir a B'ritt
       </a>
     );
@@ -30,6 +33,7 @@ function ListenLink() {
 }
 
 export function PlayBench() {
+  const { content } = useSite();
   const ref = useRef<HTMLElement>(null);
   const seen = useInView(ref, { margin: "320px", once: true });
 
@@ -40,8 +44,8 @@ export function PlayBench() {
   return (
     <section ref={ref} id="som" className="bg-black">
       <div className="mx-auto max-w-[1500px] px-5 pt-24 pb-10 md:px-10">
-        <h2 className="font-display text-5xl leading-none tracking-tight md:text-7xl">Toque a B'ritt</h2>
-        <p className="mt-4 max-w-[42ch] text-bone-dim">O quarto está armado. Arraste para girar a peça e clique para tocar.</p>
+        <h2 className="font-display text-5xl leading-none tracking-tight md:text-7xl">{content.copy.playTitle || "Toque a B'ritt"}</h2>
+        {content.copy.playIntro ? <p className="mt-4 max-w-[42ch] text-bone-dim">{content.copy.playIntro}</p> : null}
         <LiveWave className="mt-6 max-w-lg" />
       </div>
       <InteractiveDrums />

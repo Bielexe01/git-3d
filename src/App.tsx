@@ -1,11 +1,13 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { AudioController } from "./components/AudioController/AudioController";
 import { Cursor } from "./components/Cursor/Cursor";
 import { Hero } from "./components/Hero/Hero";
 import { PlayBench } from "./components/InteractiveStage/PlayBench";
 import { Loader } from "./components/Loader/Loader";
 import { Nav } from "./components/Nav/Nav";
+import { SiteProvider } from "./content/SiteProvider";
 
+const AdminPanel = lazy(() => import("./components/Admin/AdminPanel").then((mod) => ({ default: mod.AdminPanel })));
 const BandMembers = lazy(() => import("./components/BandMembers/BandMembers").then((mod) => ({ default: mod.BandMembers })));
 const About = lazy(() => import("./components/About/About").then((mod) => ({ default: mod.About })));
 const Gallery = lazy(() => import("./components/Gallery/Gallery").then((mod) => ({ default: mod.Gallery })));
@@ -39,14 +41,41 @@ function Experience() {
   );
 }
 
-export default function App() {
+function usePainel() {
+  const [open, setOpen] = useState(() => window.location.hash === "#painel");
+  useEffect(() => {
+    const sync = () => setOpen(window.location.hash === "#painel");
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
+  return open;
+}
+
+function Shell() {
+  const painel = usePainel();
   const [entered, setEntered] = useState(false);
 
   return (
     <>
       <div className="grain" aria-hidden="true" />
-      <Cursor />
-      {entered ? <Experience /> : <Loader onEnter={() => setEntered(true)} />}
+      {painel ? null : <Cursor />}
+      {painel ? (
+        <Suspense fallback={<div className="fixed inset-0 z-[50] bg-black" />}>
+          <AdminPanel onViewSite={() => setEntered(true)} />
+        </Suspense>
+      ) : entered ? (
+        <Experience />
+      ) : (
+        <Loader onEnter={() => setEntered(true)} />
+      )}
     </>
+  );
+}
+
+export default function App() {
+  return (
+    <SiteProvider>
+      <Shell />
+    </SiteProvider>
   );
 }

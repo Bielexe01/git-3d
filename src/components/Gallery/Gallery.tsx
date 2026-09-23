@@ -1,9 +1,12 @@
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import { gallery } from "../../data/gallery";
+import { safeMedia } from "../../content/links";
+import { useSite } from "../../content/SiteProvider";
 
 export function Gallery() {
+  const { content } = useSite();
+  const gallery = content.gallery.filter((item) => safeMedia(item.src));
   const [index, setIndex] = useState<number | null>(null);
   const reduced = useReducedMotion();
   const opener = useRef<HTMLElement | null>(null);
@@ -38,7 +41,7 @@ export function Gallery() {
       document.body.style.overflow = previous;
       window.removeEventListener("keydown", onKey);
     };
-  }, [index]);
+  }, [index, gallery.length]);
 
   function step(direction: number) {
     setIndex((current) => {
@@ -57,13 +60,22 @@ export function Gallery() {
     setIndex(next);
   }
 
-  if (!hero) return null;
+  if (!hero) {
+    return (
+      <section id="momentos" className="px-5 py-28 md:px-10">
+        <div className="mx-auto max-w-[1500px]">
+          <h2 className="font-display text-5xl tracking-tight md:text-7xl">{content.copy.galleryTitle || "Momentos"}</h2>
+          {content.copy.galleryIntro ? <p className="mt-4 max-w-[46ch] text-bone-dim">{content.copy.galleryIntro}</p> : null}
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="momentos" className="px-5 py-28 md:px-10">
       <div className="mx-auto max-w-[1500px]">
-        <h2 className="font-display text-5xl tracking-tight md:text-7xl">Momentos</h2>
-        <p className="mt-4 max-w-[46ch] text-bone-dim">Fotos de estúdio provisórias, no lugar das fotos da banda.</p>
+        <h2 className="font-display text-5xl tracking-tight md:text-7xl">{content.copy.galleryTitle || "Momentos"}</h2>
+        {content.copy.galleryIntro ? <p className="mt-4 max-w-[46ch] text-bone-dim">{content.copy.galleryIntro}</p> : null}
         <div ref={lead} className="mt-12 overflow-hidden">
           <button
             type="button"
@@ -72,7 +84,7 @@ export function Gallery() {
             onClick={(event) => openAt(0, event.currentTarget)}
           >
             <motion.img
-              src={hero.src}
+              src={safeMedia(hero.src)}
               alt={hero.alt}
               style={{ y }}
               className="aspect-[16/9] w-full scale-105 object-cover"
@@ -90,7 +102,7 @@ export function Gallery() {
                 onClick={(event) => openAt(itemIndex + 1, event.currentTarget)}
               >
                 <img
-                  src={item.src}
+                  src={safeMedia(item.src)}
                   alt={item.alt}
                   loading="lazy"
                   className="w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
@@ -107,7 +119,7 @@ export function Gallery() {
             <X size={18} strokeWidth={1.5} />
             Fechar
           </button>
-          <img src={gallery[index].src} alt={gallery[index].alt} className="max-h-[78dvh] max-w-full object-contain" />
+          <img src={safeMedia(gallery[index].src)} alt={gallery[index].alt} className="max-h-[78dvh] max-w-full object-contain" />
           <div className="absolute inset-x-0 bottom-4 flex items-center justify-between px-4">
             <button type="button" className="inline-flex h-11 items-center gap-2" onClick={() => step(-1)}>
               <ChevronLeft size={18} strokeWidth={1.5} />

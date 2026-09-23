@@ -1,16 +1,24 @@
 import { ArrowUpRight } from "lucide-react";
 import { useState } from "react";
-import { socialList } from "../../data/social";
+import { safeHref } from "../../content/links";
+import { useSite } from "../../content/SiteProvider";
 
 export function SocialLinks() {
+  const { content } = useSite();
   const [note, setNote] = useState<string | null>(null);
+  const items = [
+    { id: "spotify", label: "Spotify", href: safeHref(content.social.spotify) },
+    { id: "youtube", label: "YouTube", href: safeHref(content.social.youtube) },
+    { id: "instagram", label: "Instagram", href: safeHref(content.social.instagram) },
+    { id: "tiktok", label: "TikTok", href: safeHref(content.social.tiktok) },
+  ];
 
   return (
     <section id="seguir" className="px-5 py-24 md:px-10">
       <div className="mx-auto max-w-[1400px]">
-        <h2 className="font-display text-5xl tracking-tight md:text-7xl">Continue a experiência</h2>
+        <h2 className="font-display text-5xl tracking-tight md:text-7xl">{content.copy.socialTitle || "Continue a experiência"}</h2>
         <ul className="mt-12 border-b border-bone/15">
-          {socialList.map((item) => (
+          {items.map((item) => (
             <li key={item.id} className="group border-t border-bone/15">
               {item.href ? (
                 <a

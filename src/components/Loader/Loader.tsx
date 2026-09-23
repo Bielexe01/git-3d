@@ -1,6 +1,8 @@
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { armExperience } from "../../audio/AudioManager";
+import { safeMedia } from "../../content/links";
+import { useSite } from "../../content/SiteProvider";
 
 const bars = Array.from({ length: 42 }, (_, index) => {
   const distance = Math.abs(index - 21) / 21;
@@ -8,6 +10,7 @@ const bars = Array.from({ length: 42 }, (_, index) => {
 });
 
 export function Loader({ onEnter }: { onEnter: () => void }) {
+  const { content } = useSite();
   const reduced = useReducedMotion();
   const [pending, setPending] = useState(false);
 
@@ -26,8 +29,8 @@ export function Loader({ onEnter }: { onEnter: () => void }) {
     <div className="fixed inset-0 z-[80] grid place-items-center bg-ink px-6">
       <div className="flex w-full max-w-md flex-col items-center">
         <motion.img
-          src="/brand/logo.png"
-          alt="B'ritt"
+          src={safeMedia(content.brand.logo)}
+          alt={content.brand.logoAlt || "B'ritt"}
           className="w-[min(280px,70vw)]"
           initial={reduced ? false : { opacity: 0, filter: "blur(12px)" }}
           animate={{ opacity: 1, filter: "blur(0px)" }}
@@ -63,6 +66,9 @@ export function Loader({ onEnter }: { onEnter: () => void }) {
         >
           {pending ? "ABRINDO" : "ENTRAR"}
         </motion.button>
+        <a href="#painel" className="mt-8 text-sm tracking-[0.16em] text-bone-dim">
+          Editar o site
+        </a>
       </div>
     </div>
   );

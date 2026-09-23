@@ -1,0 +1,224 @@
+{
+  "brand": {
+    "logo": "/brand/logo.png",
+    "logoAlt": "B'ritt"
+  },
+  "band": {
+    "name": "B'ritt",
+    "description": "[Substituir] Texto de apresentação da banda.",
+    "location": "[Substituir] Cidade",
+    "style": "[Substituir] Estilo"
+  },
+  "hero": {
+    "tagline": "Não apenas ouça. Experimente.",
+    "cta": "Toque a B'ritt",
+    "image": "/images/band/room.jpg",
+    "imageAlt": "Estúdio vazio da B'ritt, com guitarras, baixo, bateria, amplificador e microfones."
+  },
+  "copy": {
+    "membersTitle": "Quem faz o som",
+    "membersIntro": "As fotos dos quatro ainda entram aqui. Por enquanto, o estúdio segura o lugar.",
+    "galleryTitle": "Momentos",
+    "galleryIntro": "Fotos de estúdio provisórias, no lugar das fotos da banda.",
+    "videosTitle": "Veja a B'ritt",
+    "videosIntro": "Os vídeos entram quando os links do YouTube forem definidos.",
+    "musicTitle": "Ouça a B'ritt",
+    "musicIntro": "As faixas entram aqui quando os links forem definidos.",
+    "playTitle": "Toque a B'ritt",
+    "playIntro": "O quarto está armado. Arraste para girar a peça e clique para tocar.",
+    "socialTitle": "Continue a experiência"
+  },
+  "members": [
+    {
+      "id": "vitin",
+      "name": "Vitin",
+      "roles": ["Compositor", "Guitarrista", "Vocalista"],
+      "instrument": "Guitarra + Voz",
+      "image": "/images/band/guitar-vitin.jpg",
+      "imageAlt": "Imagem provisória de uma guitarra clara em estúdio. Substituir pela foto de Vitin."
+    },
+    {
+      "id": "will",
+      "name": "Will",
+      "roles": ["Compositor", "Guitarrista", "Vocalista"],
+      "instrument": "Guitarra + Voz",
+      "image": "/images/band/guitar-will.jpg",
+      "imageAlt": "Imagem provisória de uma guitarra escura em estúdio. Substituir pela foto de Will."
+    },
+    {
+      "id": "hiagolas",
+      "name": "Hiagolas",
+      "roles": ["Baixista"],
+      "instrument": "Baixo",
+      "image": "/images/band/bass.jpg",
+      "imageAlt": "Imagem provisória de um baixo em estúdio. Substituir pela foto de Hiagolas."
+    },
+    {
+      "id": "biel",
+      "name": "Biel",
+      "roles": ["Baterista"],
+      "instrument": "Bateria",
+      "image": "/images/band/drums.jpg",
+      "imageAlt": "Imagem provisória de uma bateria em estúdio. Substituir pela foto de Biel."
+    }
+  ],
+  "gallery": [
+    {
+      "id": "room",
+      "src": "/images/band/room.jpg",
+      "alt": "Imagem provisória do quarto de ensaio vazio. Substituir por foto da B'ritt.",
+      "ratio": "16/9",
+      "tilt": 0
+    },
+    {
+      "id": "guitar-vitin",
+      "src": "/images/band/guitar-vitin.jpg",
+      "alt": "Imagem provisória de guitarra clara. Substituir por foto da B'ritt.",
+      "ratio": "2/3",
+      "tilt": -0.6
+    },
+    {
+      "id": "drums",
+      "src": "/images/band/drums.jpg",
+      "alt": "Imagem provisória de bateria. Substituir por foto da B'ritt.",
+      "ratio": "4/3",
+      "tilt": 0.4
+    },
+    {
+      "id": "cymbal",
+      "src": "/images/band/cymbal.jpg",
+      "alt": "Imagem provisória de um prato. Substituir por foto da B'ritt.",
+      "ratio": "1/1",
+      "tilt": 0
+    },
+    {
+      "id": "bass",
+      "src": "/images/band/bass.jpg",
+      "alt": "Imagem provisória de um baixo. Substituir por foto da B'ritt.",
+      "ratio": "2/3",
+      "tilt": 0.5
+    },
+    {
+      "id": "room-side",
+      "src": "/images/band/room-side.jpg",
+      "alt": "Imagem provisória do ensaio visto de lado. Substituir por foto da B'ritt.",
+      "ratio": "16/9",
+      "tilt": -0.3
+    },
+    {
+      "id": "pedals",
+      "src": "/images/band/pedals.jpg",
+      "alt": "Imagem provisória de pedais. Substituir por foto da B'ritt.",
+      "ratio": "3/2",
+      "tilt": 0
+    },
+    {
+      "id": "guitar-will",
+      "src": "/images/band/guitar-will.jpg",
+      "alt": "Imagem provisória de guitarra escura. Substituir por foto da B'ritt.",
+      "ratio": "2/3",
+      "tilt": -0.4
+    },
+    {
+      "id": "mic",
+      "src": "/images/band/mic-vitin.jpg",
+      "alt": "Imagem provisória de um microfone. Substituir por foto da B'ritt.",
+      "ratio": "2/3",
+      "tilt": 0.3
+    },
+    {
+      "id": "amp",
+      "src": "/images/band/amp.jpg",
+      "alt": "Imagem provisória de um amplificador. Substituir por foto da B'ritt.",
+      "ratio": "4/3",
+      "tilt": 0
+    },
+    {
+      "id": "cables",
+      "src": "/images/band/cables.jpg",
+      "alt": "Imagem provisória de cabos no chão. Substituir por foto da B'ritt.",
+      "ratio": "1/1",
+      "tilt": 0.6
+    },
+    {
+      "id": "mic-will",
+      "src": "/images/band/mic-will.jpg",
+      "alt": "Imagem provisória de um segundo microfone. Substituir por foto da B'ritt.",
+      "ratio": "2/3",
+      "tilt": -0.5
+    }
+  ],
+  "tracks": [
+    {
+      "id": "track-1",
+      "title": "[Substituir] Título da faixa",
+      "duration": "--:--",
+      "cover": "/images/band/cymbal.jpg",
+      "coverAlt": "Imagem provisória de capa.",
+      "url": "",
+      "audio": ""
+    },
+    {
+      "id": "track-2",
+      "title": "[Substituir] Título da faixa",
+      "duration": "--:--",
+      "cover": "/images/band/pedals.jpg",
+      "coverAlt": "Imagem provisória de capa.",
+      "url": "",
+      "audio": ""
+    },
+    {
+      "id": "track-3",
+      "title": "[Substituir] Título da faixa",
+      "duration": "--:--",
+      "cover": "/images/band/amp.jpg",
+      "coverAlt": "Imagem provisória de capa.",
+      "url": "",
+      "audio": ""
+    }
+  ],
+  "videos": [
+    {
+      "id": "video-1",
+      "title": "[Substituir] Título do vídeo",
+      "context": "Clipe",
+      "youtube": "",
+      "thumbnail": "/images/band/room-side.jpg",
+      "thumbnailAlt": "Imagem provisória de ensaio, usada no lugar da capa do vídeo.",
+      "file": ""
+    },
+    {
+      "id": "video-2",
+      "title": "[Substituir] Título do vídeo",
+      "context": "Apresentação",
+      "youtube": "",
+      "thumbnail": "/images/band/room.jpg",
+      "thumbnailAlt": "Imagem provisória do quarto, usada no lugar da capa do vídeo.",
+      "file": ""
+    },
+    {
+      "id": "video-3",
+      "title": "[Substituir] Título do vídeo",
+      "context": "Ensaio",
+      "youtube": "",
+      "thumbnail": "/images/band/drums.jpg",
+      "thumbnailAlt": "Imagem provisória da bateria, usada no lugar da capa do vídeo.",
+      "file": ""
+    },
+    {
+      "id": "video-4",
+      "title": "[Substituir] Título do vídeo",
+      "context": "Bastidores",
+      "youtube": "",
+      "thumbnail": "/images/band/cables.jpg",
+      "thumbnailAlt": "Imagem provisória de cabos, usada no lugar da capa do vídeo.",
+      "file": ""
+    }
+  ],
+  "social": {
+    "spotify": "",
+    "youtube": "",
+    "instagram": "",
+    "tiktok": ""
+  }
+}

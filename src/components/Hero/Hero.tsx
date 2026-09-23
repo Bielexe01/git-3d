@@ -1,6 +1,8 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import type { SampleId } from "../../audio/samples";
+import { safeMedia } from "../../content/links";
+import { useSite } from "../../content/SiteProvider";
 import { hasWebGL } from "../../hooks/useMedia";
 import { heroCamera, HeroStage } from "../stage3d/HeroStage";
 import { HitKeys } from "../stage3d/HitKeys";
@@ -32,11 +34,12 @@ const heroHits: { id: string; sample: SampleId; label: string }[] = [
 ];
 
 function PhotoRoom() {
+  const { content } = useSite();
   return (
     <>
       <img
-        src="/images/band/room.jpg"
-        alt="Estúdio vazio da B'ritt, com guitarras, baixo, bateria, amplificador e microfones."
+        src={safeMedia(content.hero.image)}
+        alt={content.hero.imageAlt}
         className="h-full w-full object-fill"
       />
       {spots.map((spot) => (
@@ -47,6 +50,7 @@ function PhotoRoom() {
 }
 
 export function Hero() {
+  const { content } = useSite();
   const sectionRef = useRef<HTMLElement>(null);
   const tilt = useRef({ x: 0, y: 0 });
   const reduced = useReducedMotion();
@@ -95,18 +99,22 @@ export function Hero() {
           style={reduced ? undefined : { opacity: titleOpacity }}
         >
           <h1>
-            <img src="/brand/logo.png" alt="B'ritt" className="w-[min(250px,62vw)]" />
+            <img src={safeMedia(content.brand.logo)} alt={content.brand.logoAlt || "B'ritt"} className="w-[min(250px,62vw)]" />
           </h1>
-          <p className="mt-1 max-w-[24ch] text-lg text-bone" style={{ textShadow: "0 2px 18px #000" }}>
-            Não apenas ouça. Experimente.
-          </p>
-          <a
-            href="#som"
-            data-cursor="ABRIR"
-            className="pointer-events-auto mt-5 inline-flex bg-brass px-5 py-3 text-sm tracking-[0.16em] text-ink"
-          >
-            Toque a B'ritt
-          </a>
+          {content.hero.tagline ? (
+            <p className="mt-1 max-w-[24ch] text-lg text-bone" style={{ textShadow: "0 2px 18px #000" }}>
+              {content.hero.tagline}
+            </p>
+          ) : null}
+          {content.hero.cta ? (
+            <a
+              href="#som"
+              data-cursor="ABRIR"
+              className="pointer-events-auto mt-5 inline-flex bg-brass px-5 py-3 text-sm tracking-[0.16em] text-ink"
+            >
+              {content.hero.cta}
+            </a>
+          ) : null}
         </motion.div>
         <motion.div className="pointer-events-none absolute inset-0 bg-black" style={{ opacity: veil }} />
       </div>

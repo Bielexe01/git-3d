@@ -1,8 +1,10 @@
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
-import { members } from "../../data/members";
+import { safeMedia } from "../../content/links";
+import { useSite } from "../../content/SiteProvider";
+import type { MemberId } from "../../content/types";
 
-const place = {
+const place: Record<MemberId, string> = {
   vitin: "lg:col-span-7",
   will: "lg:col-span-4 lg:col-start-9 lg:mt-28",
   hiagolas: "lg:col-span-5 lg:-mt-8",
@@ -10,6 +12,7 @@ const place = {
 };
 
 export function BandMembers() {
+  const { content } = useSite();
   const reduced = useReducedMotion();
   const [active, setActive] = useState<string | null>(null);
 
@@ -25,13 +28,11 @@ export function BandMembers() {
     >
       <div className="mx-auto max-w-[1400px]">
         <h2 className="max-w-[10ch] font-display text-5xl leading-[0.9] tracking-tight md:text-7xl">
-          Quem faz o som
+          {content.copy.membersTitle || "Quem faz o som"}
         </h2>
-        <p className="mt-5 max-w-[42ch] text-bone-dim">
-          As fotos dos quatro ainda entram aqui. Por enquanto, o estúdio segura o lugar.
-        </p>
+        {content.copy.membersIntro ? <p className="mt-5 max-w-[42ch] text-bone-dim">{content.copy.membersIntro}</p> : null}
         <ul className="mt-16 grid grid-cols-1 gap-y-16 md:grid-cols-12 md:gap-x-6">
-          {members.map((member) => (
+          {content.members.map((member) => (
             <li
               key={member.id}
               className={place[member.id]}
@@ -40,7 +41,7 @@ export function BandMembers() {
             >
               <article data-cursor="VER" className="group relative overflow-hidden">
                 <motion.img
-                  src={member.image}
+                  src={safeMedia(member.image)}
                   alt={member.imageAlt}
                   width={832}
                   height={1248}

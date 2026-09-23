@@ -1,5 +1,7 @@
 import { Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { safeMedia } from "../../content/links";
+import { useSite } from "../../content/SiteProvider";
 
 const links = [
   { href: "#palco", label: "Palco" },
@@ -11,6 +13,7 @@ const links = [
 ];
 
 export function Nav() {
+  const { content } = useSite();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -26,7 +29,7 @@ export function Nav() {
     <header className={`fixed top-0 right-0 left-0 h-16 bg-gradient-to-b from-black via-black/75 to-transparent ${open ? "z-[80]" : "z-30"}`}>
       <nav className="mx-auto flex h-full max-w-[1400px] items-center gap-6 px-4 md:px-8" aria-label="Seções">
         <a href="#palco" className="shrink-0" data-cursor="ABRIR">
-          <img src="/brand/logo.png" alt="B'ritt" className="h-12 w-auto mix-blend-lighten" />
+          <img src={safeMedia(content.brand.logo)} alt={content.brand.logoAlt || "B'ritt"} className="h-12 w-auto mix-blend-lighten" />
         </a>
         <ul className="ml-auto hidden items-center gap-5 lg:flex">
           {links.map((link) => (
