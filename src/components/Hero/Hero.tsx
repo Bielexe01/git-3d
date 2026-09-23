@@ -60,8 +60,10 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
   const scale = useTransform(scrollYProgress, [0, 1], reduced ? [1, 1] : [1, 0.94]);
-  const veil = useTransform(scrollYProgress, [0.62, 1], [0, 1]);
-  const titleOpacity = useTransform(scrollYProgress, [0, 0.28], [1, 0]);
+  const stageY = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [28, -64]);
+  const veil = useTransform(scrollYProgress, [0.62, 1], reduced ? [0, 0] : [0, 1]);
+  const titleOpacity = useTransform(scrollYProgress, [0, 0.28], reduced ? [1, 1] : [1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, 0.35], reduced ? [0, 0] : [0, -28]);
 
   return (
     <section ref={sectionRef} id="palco" className="relative h-[150dvh] bg-black">
@@ -79,7 +81,7 @@ export function Hero() {
         }}
       >
         <div className="absolute top-1/2 left-1/2 aspect-video w-[max(124vw,calc(124dvh*16/9))] -translate-x-1/2 -translate-y-1/2">
-          <motion.div className="relative h-full w-full" style={reduced ? undefined : { scale }}>
+          <motion.div className="relative h-full w-full" style={{ scale, y: stageY }}>
             {webgl ? (
               <StageBoundary fallback={<PhotoRoom />}>
                 <StageView className="absolute inset-0" camera={heroCamera}>
@@ -96,7 +98,7 @@ export function Hero() {
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black to-transparent" />
         <motion.div
           className="pointer-events-none absolute top-20 left-5 z-20 max-w-md md:left-10 md:top-24"
-          style={reduced ? undefined : { opacity: titleOpacity }}
+          style={{ opacity: titleOpacity, y: titleY }}
         >
           <h1>
             <img src={safeMedia(content.brand.logo)} alt={content.brand.logoAlt || "B'ritt"} className="w-[min(250px,62vw)]" />

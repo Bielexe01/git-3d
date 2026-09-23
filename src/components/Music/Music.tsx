@@ -1,14 +1,18 @@
 import { Pause, Play } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { safeHref, safeMedia } from "../../content/links";
 import { useSite } from "../../content/SiteProvider";
 import type { Track } from "../../content/types";
+import { Reveal } from "../ui/Scroll";
+import { fadeProps } from "../ui/scrollMotion";
 
 export function Music() {
   const { content } = useSite();
   const [note, setNote] = useState("");
   const [playing, setPlaying] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const reduced = useReducedMotion();
   const spotify = safeHref(content.social.spotify);
 
   useEffect(() => () => audioRef.current?.pause(), []);
@@ -59,14 +63,16 @@ export function Music() {
   return (
     <section id="ouca" className="px-5 py-28 md:px-10">
       <div className="mx-auto max-w-[1400px]">
-        <h2 className="font-display text-5xl tracking-tight md:text-7xl">{content.copy.musicTitle || "Ouça a B'ritt"}</h2>
-        {content.copy.musicIntro ? <p className="mt-4 max-w-[46ch] text-bone-dim">{content.copy.musicIntro}</p> : null}
+        <Reveal>
+          <h2 className="font-display text-5xl tracking-tight md:text-7xl">{content.copy.musicTitle || "Ouça a B'ritt"}</h2>
+          {content.copy.musicIntro ? <p className="mt-4 max-w-[46ch] text-bone-dim">{content.copy.musicIntro}</p> : null}
+        </Reveal>
         <ol className="mt-12 max-w-4xl">
           {content.tracks.map((track, index) => {
             const cover = safeMedia(track.cover);
             const active = playing === track.id;
             return (
-              <li key={track.id} className="grid grid-cols-[72px_1fr_auto] items-center gap-4 border-t border-bone/15 py-4">
+              <motion.li key={track.id} className="grid grid-cols-[72px_1fr_auto] items-center gap-4 border-t border-bone/15 py-4" {...fadeProps(reduced, Math.min(index, 8) * 0.04, 14)}>
                 {cover ? (
                   <img src={cover} alt={track.coverAlt} className="h-16 w-16 object-cover" loading="lazy" />
                 ) : (
@@ -87,10 +93,11 @@ export function Music() {
                 >
                   {active ? <Pause size={16} strokeWidth={1.5} /> : <Play size={16} strokeWidth={1.5} />}
                 </button>
-              </li>
+              </motion.li>
             );
           })}
         </ol>
+        <Reveal delay={0.1}>
         <div className="mt-8">
           <button
             type="button"
@@ -102,6 +109,7 @@ export function Music() {
           </button>
           {note ? <p className="mt-3 text-sm text-bone-dim">{note}</p> : null}
         </div>
+        </Reveal>
       </div>
     </section>
   );

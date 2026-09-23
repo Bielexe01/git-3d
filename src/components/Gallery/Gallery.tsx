@@ -1,8 +1,10 @@
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { safeMedia } from "../../content/links";
 import { useSite } from "../../content/SiteProvider";
+import { ParallaxImage, Reveal } from "../ui/Scroll";
+import { fadeProps } from "../ui/scrollMotion";
 
 export function Gallery() {
   const { content } = useSite();
@@ -10,12 +12,6 @@ export function Gallery() {
   const [index, setIndex] = useState<number | null>(null);
   const reduced = useReducedMotion();
   const opener = useRef<HTMLElement | null>(null);
-  const lead = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: lead,
-    offset: ["start end", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], reduced ? [0, 0] : [-20, 20]);
   const hero = gallery[0];
   const rest = gallery.slice(1);
   const open = index !== null;
@@ -64,8 +60,10 @@ export function Gallery() {
     return (
       <section id="momentos" className="px-5 py-28 md:px-10">
         <div className="mx-auto max-w-[1500px]">
-          <h2 className="font-display text-5xl tracking-tight md:text-7xl">{content.copy.galleryTitle || "Momentos"}</h2>
-          {content.copy.galleryIntro ? <p className="mt-4 max-w-[46ch] text-bone-dim">{content.copy.galleryIntro}</p> : null}
+          <Reveal>
+            <h2 className="font-display text-5xl tracking-tight md:text-7xl">{content.copy.galleryTitle || "Momentos"}</h2>
+            {content.copy.galleryIntro ? <p className="mt-4 max-w-[46ch] text-bone-dim">{content.copy.galleryIntro}</p> : null}
+          </Reveal>
         </div>
       </section>
     );
@@ -74,26 +72,23 @@ export function Gallery() {
   return (
     <section id="momentos" className="px-5 py-28 md:px-10">
       <div className="mx-auto max-w-[1500px]">
-        <h2 className="font-display text-5xl tracking-tight md:text-7xl">{content.copy.galleryTitle || "Momentos"}</h2>
-        {content.copy.galleryIntro ? <p className="mt-4 max-w-[46ch] text-bone-dim">{content.copy.galleryIntro}</p> : null}
-        <div ref={lead} className="mt-12 overflow-hidden">
+        <Reveal>
+          <h2 className="font-display text-5xl tracking-tight md:text-7xl">{content.copy.galleryTitle || "Momentos"}</h2>
+          {content.copy.galleryIntro ? <p className="mt-4 max-w-[46ch] text-bone-dim">{content.copy.galleryIntro}</p> : null}
+        </Reveal>
+        <div className="mt-12">
           <button
             type="button"
             data-cursor="VER"
             className="block w-full text-left"
             onClick={(event) => openAt(0, event.currentTarget)}
           >
-            <motion.img
-              src={safeMedia(hero.src)}
-              alt={hero.alt}
-              style={{ y }}
-              className="aspect-[16/9] w-full scale-105 object-cover"
-            />
+            <ParallaxImage src={safeMedia(hero.src)} alt={hero.alt} drift={6} frameClassName="aspect-[16/9] w-full" />
           </button>
         </div>
         <ul className="mt-4 columns-1 gap-4 md:columns-2 lg:columns-3">
           {rest.map((item, itemIndex) => (
-            <li key={item.id} className="mb-4 break-inside-avoid">
+            <motion.li key={item.id} className="mb-4 break-inside-avoid" {...fadeProps(reduced, Math.min(itemIndex, 8) * 0.05, 16)}>
               <button
                 type="button"
                 data-cursor="VER"
@@ -109,7 +104,7 @@ export function Gallery() {
                   style={{ aspectRatio: item.ratio }}
                 />
               </button>
-            </li>
+            </motion.li>
           ))}
         </ul>
       </div>

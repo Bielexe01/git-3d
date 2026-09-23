@@ -1,6 +1,7 @@
 import { useReducedMotion } from "motion/react";
 import { safeHref, safeMedia } from "../../content/links";
 import { useSite } from "../../content/SiteProvider";
+import { Reveal } from "../ui/Scroll";
 
 export function Footer() {
   const { content } = useSite();
@@ -17,7 +18,7 @@ export function Footer() {
 
   return (
     <footer className="border-t border-bone/10 px-5 pt-16 pb-32 md:px-10">
-      <div className="mx-auto flex max-w-[1400px] flex-col gap-8">
+      <Reveal className="mx-auto flex max-w-[1400px] flex-col gap-8" y={16}>
         <img src={safeMedia(content.brand.logo)} alt={content.brand.logoAlt || "B'ritt"} className="h-16 w-auto self-start" />
         {names ? <p className="font-display text-lg">{names}</p> : null}
         <ul className="flex flex-wrap gap-5 text-sm">
@@ -43,7 +44,7 @@ export function Footer() {
         <a href="#painel" className="self-start text-sm tracking-[0.14em] text-bone-dim">
           Editar o site
         </a>
-      </div>
+      </Reveal>
     </footer>
   );
 }

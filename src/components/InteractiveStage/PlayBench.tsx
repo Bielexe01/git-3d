@@ -10,6 +10,7 @@ import { InteractiveDrums } from "../InteractiveDrums/InteractiveDrums";
 import { InteractiveGuitar } from "../InteractiveGuitar/InteractiveGuitar";
 import { InteractiveMicrophone } from "../InteractiveMicrophone/InteractiveMicrophone";
 import { LiveWave } from "../ui/LiveWave";
+import { Reveal } from "../ui/Scroll";
 
 function ListenLink() {
   const { content } = useSite();
@@ -43,11 +44,11 @@ export function PlayBench() {
 
   return (
     <section ref={ref} id="som" className="bg-black">
-      <div className="mx-auto max-w-[1500px] px-5 pt-24 pb-10 md:px-10">
+      <Reveal className="mx-auto max-w-[1500px] px-5 pt-24 pb-10 md:px-10">
         <h2 className="font-display text-5xl leading-none tracking-tight md:text-7xl">{content.copy.playTitle || "Toque a B'ritt"}</h2>
         {content.copy.playIntro ? <p className="mt-4 max-w-[42ch] text-bone-dim">{content.copy.playIntro}</p> : null}
         <LiveWave className="mt-6 max-w-lg" />
-      </div>
+      </Reveal>
       <InteractiveDrums />
       <div className="grid md:grid-cols-2">
         <InteractiveGuitar player="vitin" />

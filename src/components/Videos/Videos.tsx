@@ -1,9 +1,12 @@
 import { X } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { safeHref, safeMedia } from "../../content/links";
 import { useSite } from "../../content/SiteProvider";
 import type { VideoItem } from "../../content/types";
 import { youtubeId } from "../../content/youtube";
+import { ParallaxImage, Reveal } from "../ui/Scroll";
+import { fadeProps } from "../ui/scrollMotion";
 
 export function Videos() {
   const { content } = useSite();
@@ -14,6 +17,7 @@ export function Videos() {
   const feature = videos[0];
   const rest = videos.slice(1);
   const channel = safeHref(content.social.youtube);
+  const reduced = useReducedMotion();
 
   useEffect(() => {
     if (!active) return;
@@ -52,41 +56,51 @@ export function Videos() {
   return (
     <section id="videos" className="px-5 py-28 md:px-10 md:py-36">
       <div className="mx-auto max-w-[1400px]">
-        <h2 className="font-display text-5xl tracking-tight md:text-7xl">{content.copy.videosTitle || "Veja a B'ritt"}</h2>
-        {content.copy.videosIntro ? <p className="mt-4 max-w-[46ch] text-bone-dim">{content.copy.videosIntro}</p> : null}
+        <Reveal>
+          <h2 className="font-display text-5xl tracking-tight md:text-7xl">{content.copy.videosTitle || "Veja a B'ritt"}</h2>
+          {content.copy.videosIntro ? <p className="mt-4 max-w-[46ch] text-bone-dim">{content.copy.videosIntro}</p> : null}
+        </Reveal>
         {feature ? (
           <div className="mt-12 grid gap-6 lg:grid-cols-12">
-            <button
+            <motion.button
               type="button"
               data-cursor="ASSISTIR"
               className="text-left lg:col-span-8"
+              {...fadeProps(reduced, 0, 28)}
               onClick={(event) => open(feature, event.currentTarget)}
             >
               {safeMedia(feature.thumbnail) ? (
-                <img src={safeMedia(feature.thumbnail)} alt={feature.thumbnailAlt} className="aspect-[16/9] w-full object-cover" />
+                <ParallaxImage src={safeMedia(feature.thumbnail)} alt={feature.thumbnailAlt} drift={6} frameClassName="aspect-[16/9] w-full" />
               ) : (
                 <div className="aspect-[16/9] w-full bg-ink-2" />
               )}
               {feature.context ? <span className="mt-3 block text-sm text-brass">{feature.context}</span> : null}
               <span className="mt-1 block font-display text-3xl">{feature.title}</span>
-            </button>
+            </motion.button>
             <div className="grid gap-6 lg:col-span-4">
-              {rest.map((video) => (
-                <button
+              {rest.map((video, index) => (
+                <motion.button
                   key={video.id}
                   type="button"
                   data-cursor="ASSISTIR"
                   className="text-left"
+                  {...fadeProps(reduced, 0.08 + index * 0.06, 20)}
                   onClick={(event) => open(video, event.currentTarget)}
                 >
                   {safeMedia(video.thumbnail) ? (
-                    <img src={safeMedia(video.thumbnail)} alt={video.thumbnailAlt} className="aspect-[16/9] w-full object-cover" loading="lazy" />
+                    <ParallaxImage
+                      src={safeMedia(video.thumbnail)}
+                      alt={video.thumbnailAlt}
+                      loading="lazy"
+                      drift={index % 2 === 0 ? -4 : 4}
+                      frameClassName="aspect-[16/9] w-full"
+                    />
                   ) : (
                     <div className="aspect-[16/9] w-full bg-ink-2" />
                   )}
                   {video.context ? <span className="mt-2 block text-sm text-brass">{video.context}</span> : null}
                   <span className="mt-1 block text-lg">{video.title}</span>
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>

@@ -1,4 +1,5 @@
 import { Menu, X } from "lucide-react";
+import { motion, useReducedMotion, useScroll } from "motion/react";
 import { useEffect, useState } from "react";
 import { safeMedia } from "../../content/links";
 import { useSite } from "../../content/SiteProvider";
@@ -14,6 +15,8 @@ const links = [
 
 export function Nav() {
   const { content } = useSite();
+  const reduced = useReducedMotion();
+  const { scrollYProgress } = useScroll();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -40,6 +43,9 @@ export function Nav() {
             </li>
           ))}
         </ul>
+        {reduced ? null : (
+          <motion.span aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left bg-brass/80" style={{ scaleX: scrollYProgress }} />
+        )}
         <button
           type="button"
           className="ml-auto inline-flex h-11 w-11 items-center justify-center lg:hidden"
