@@ -1,0 +1,10 @@
+AVL Black Pearl drum kit
+Author: Glen MacArthur
+Instrument: AVL Drumkits — https://www.bandshed.net/avldrumkits/
+This copy is the GM one-shot layout from https://github.com/backmeupplz/drumkit-kits (avl-black-pearl).
+
+License: Creative Commons Attribution-ShareAlike 3.0 Unported
+https://creativecommons.org/licenses/by-sa/3.0/
+
+You must give appropriate credit, and if you remix or transform these samples you must distribute your contributions under the same license.
+Attribution: "AVL Black Pearl by Glen MacArthur — bandshed.net/avldrumkits".
