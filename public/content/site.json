@@ -77,21 +77,21 @@
   "gallery": [
     {
       "id": "room",
-      "src": "/images/band/room.jpg",
+      "src": "/uploads/1790190432250-tdwt-IMG_2271.jpg",
       "alt": "Imagem provisória do quarto de ensaio vazio. Substituir por foto da B'ritt.",
       "ratio": "16/9",
       "tilt": 0
     },
     {
       "id": "guitar-vitin",
-      "src": "/images/band/guitar-vitin.jpg",
+      "src": "/uploads/1790190439168-snyv-IMG_7389.jpg",
       "alt": "Imagem provisória de guitarra clara. Substituir por foto da B'ritt.",
       "ratio": "2/3",
       "tilt": -0.6
     },
     {
       "id": "drums",
-      "src": "/images/band/drums.jpg",
+      "src": "/uploads/1790190443349-i0cd-IMG_7366.jpg",
       "alt": "Imagem provisória de bateria. Substituir por foto da B'ritt.",
       "ratio": "4/3",
       "tilt": 0.4
